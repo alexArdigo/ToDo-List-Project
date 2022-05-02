@@ -12,8 +12,9 @@ HEAD:
 
 BODY:
 
-- INPUT LIST
-	- DELETE BUTTON
-	- DONE BUTTON
+- INPUT ORDERED LIST
+	- ITEM
+		- DELETE BUTTON
+		- DONE BUTTON
 
 This readme file will be updated as the project develops
