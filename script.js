@@ -1,27 +1,45 @@
+// next: 
+//  separe and make function out of OLLength
+//  shift positions of handleClearList and itemDeleteButton[?]
+
+
+
 const userInput = document.getElementById("UserInput");
 const submit = document.getElementById("Submit");
 const clearList = document.getElementById("ClearList");
 
 
-// handleSubmit() checks if input field has been written, if so, 
-// creates a new OL with id(ToDoList) and appends to div#container. Next, 
-// creates a new LI with class(ListItems), adds userInput.value to it 
-// and appends to OL.
+// handleSubmit() checks if input field has been written, if so,
+// calls handleOL() and handleLI() 
+ 
 const handleSubmit = () => {
     if (userInput.value.trim() === '') return
+    handleOL();
+    handleLI();
+    itemDeleteButton();
+}
+
+// creates a new OL with id(ToDoList) and appends to div#container.
+const handleOL = () => {
     const divContainer = document.getElementById('container');
     const OL = document.createElement('OL');
     OL.setAttribute('id', 'ToDoList');
     divContainer.appendChild(OL);
+    }
+
+// creates a new LI with class(ListItems) and id(itemN), adds userInput.value to it 
+// and appends to OL. Resets userInput.value at the end.
+const handleLI = () => {
     const LI = document.createElement('LI');
-    LI.setAttribute('class', 'ListItems')
+    const OL = document.getElementById('ToDoList');
+    LI.setAttribute('class', 'ListItems');
+    let OLLength = `item${OL.childNodes.length+1}`;
+    LI.id = OLLength;
     const userInputSubmited = document.createTextNode(userInput.value);
     LI.appendChild(userInputSubmited);
     document.getElementById('ToDoList').appendChild(LI);
-
+    
     userInput.value = '';
-
-
 }
 
 // handleClearList() triggers a confirm message to weither 
@@ -34,11 +52,17 @@ const handleClearList = () => {
         divContainer.removeChild(element);
     }
 }
-
-const handleItem = () => {
-    const getsLI = document.querySelector('.ListItems');
-    const deleteItemButton = document.createElement("button");
-    deleteItemButton.innerHTML('X');
+// creates a delete button for each item added. 
+const itemDeleteButton = () => {
+    const OL = document.getElementById('ToDoList');
+    let OLLength = `item${OL.childNodes.length}`;
+    console.log(OLLength)
+    const LI = document.getElementById(OLLength);
+    //console.log(LI.id)
+    let deleteItemButton = document.createElement('button');
+    deleteItemButton.innerHTML = 'X';
+    LI.appendChild(deleteItemButton)
+    
      
 }
 
