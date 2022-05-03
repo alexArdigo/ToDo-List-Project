@@ -2,27 +2,36 @@ const userInput = document.getElementById("UserInput");
 const submit = document.getElementById("Submit");
 const clearList = document.getElementById("ClearList");
 
-//const placeHolder = document.getElementById("UserInput").placeholder = 'Add your item here'
+
+//const DIV = document.createElement('div')
+
+
 
 const handleSubmit = () => {
+    if (userInput.value.trim() === '') return
+    const divContainer = document.getElementById('container');
     const OL = document.createElement('OL');
     OL.setAttribute('id', 'ToDoList');
-    document.body.appendChild(OL);
-
+    divContainer.appendChild(OL)
     const LI = document.createElement('LI');
+    LI.setAttribute('class', 'ListItems')
     const userInputSubmited = document.createTextNode(userInput.value);
-    LI.appendChild(userInputSubmited)
+    LI.appendChild(userInputSubmited);
     document.getElementById('ToDoList').appendChild(LI);
 
-    document.getElementById("UserInput").placeholder = 'Add your item here'
+    userInput.value = '';
 
 
 }
 
 const handleClearList = () => {
-    const element = document.getElementById('OL')
-    element.remove()
+    const divContainer = document.getElementById('container');
+    const message = 'Are you sure you want to delete the whole list?'
+    if (window.confirm(message)) {
+        const element = document.querySelector('#ToDoList');
+        divContainer.removeChild(element);
+    }
 }
 
-submit.addEventListener('click', handleSubmit)
-clearList.addEventListener('click', handleClearList)
+submit.addEventListener('click', handleSubmit);
+clearList.addEventListener('click', handleClearList);
