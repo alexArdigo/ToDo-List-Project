@@ -1,12 +1,13 @@
 // next: 
-//  separe and make function out of OLLength
 //  shift positions of handleClearList and itemDeleteButton[?]
 
 
 
-const userInput = document.getElementById("UserInput");
-const submit = document.getElementById("Submit");
-const clearList = document.getElementById("ClearList");
+const userInput = document.getElementById('UserInput');
+const submit = document.getElementById('Submit');
+const clearList = document.getElementById('ClearList');
+
+
 
 
 // handleSubmit() checks if input field has been written, if so,
@@ -20,12 +21,7 @@ const handleSubmit = () => {
 }
 
 // creates a new OL with id(ToDoList) and appends to div#container.
-const handleOL = () => {
-    const divContainer = document.getElementById('container');
-    const OL = document.createElement('OL');
-    OL.setAttribute('id', 'ToDoList');
-    divContainer.appendChild(OL);
-    }
+
 
 // creates a new LI with class(ListItems) and id(itemN), adds userInput.value to it 
 // and appends to OL. Resets userInput.value at the end.
@@ -52,18 +48,25 @@ const handleClearList = () => {
         divContainer.removeChild(element);
     }
 }
+
 // creates a delete button for each item added. 
+
 const itemDeleteButton = () => {
     const OL = document.getElementById('ToDoList');
     let OLLength = `item${OL.childNodes.length}`;
-    console.log(OLLength)
     const LI = document.getElementById(OLLength);
-    //console.log(LI.id)
-    let deleteItemButton = document.createElement('button');
+    let deleteItemButton = document.createElement('button')
     deleteItemButton.innerHTML = 'X';
+    deleteItemButton.addEventListener('click', () => handleDeleteItem(OLLength));
     LI.appendChild(deleteItemButton)
-    
-     
+    //const deleteItem = document.getElementById(OLLength);
+}
+
+const handleDeleteItem = (item) => {
+    const OL = document.getElementById('ToDoList');
+    let OLLength = `item${OL.childNodes.length}`;
+    const LI = document.getElementById(item);
+    OL.removeChild(LI);
 }
 
 submit.addEventListener('click', handleSubmit);
