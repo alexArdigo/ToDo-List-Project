@@ -39,6 +39,8 @@ CLEARLIST.setAttribute('id', 'Clear-List');
 CLEARLIST.innerText = 'Clear List';
 FORM.append(CLEARLIST);
 
+const message = 'Are you sure you want to clear list?'
+
 // DIV2
 const DIV2 = document.createElement('div');
 DIV2.setAttribute('class', 'To-Do-List');
@@ -52,3 +54,6 @@ DIV2.append(OL)
 
 // LI
 let liID = 1;
+
+// LI DELETE BUTTON
+let liBtnID = 1;
