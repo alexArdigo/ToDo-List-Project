@@ -11,8 +11,10 @@ userInput.addEventListener('keyup', event => {
 // Submits event
 const submitUserInput = event => {
     event.preventDefault();
+    if (userInput.value != ''){
     appendLi();
     addXBTN();
+    }
     userInput.value = '';
 }
 const formID = document.getElementById('form-control');
@@ -21,39 +23,50 @@ formID.addEventListener('submit', submitUserInput)
 // Appends <li> to <ol> 
 const appendLi = () => {
     const LI = document.createElement('li');
-    LI.setAttribute('id', `item${liID}`);
+    LI.setAttribute('id', `item${liIdCount}`);
+    LI.classList.add('todo-list')
     LI.appendChild(document.createTextNode(userInput.value + ' '));
-    LI.append(doneBTN());
-    LI.append(addXBTN());
+    LI.append(doneCheckBox(LI.id));
+    LI.append(addXBTN(LI.id));
     OL.append(LI);
-    liID += 1
+    liIdCount += 1
 }
 
-// Adds Done <button> to <li>
-const doneBTN = () => {
-    const liDoneBTN = document.createElement('button');
-    liDoneBTN.innerHTML = 'Done!';
-    return liDoneBTN
+// Adds Done checkbox to <li>
+const doneCheckBox = item => {
+    const doneCB = document.createElement('input');
+    doneCB.setAttribute('type', 'checkbox')
+    doneCB.setAttribute('style', 'textDecoration: none')
+    doneCB.addEventListener('click', () => itemDone(item, doneCB))
+
+    return doneCB
+}
+const itemDone = (item, checkbox) => {
+    const itemDone = document.getElementById(item)
+    console.log(itemDone)
+    if (checkbox.checked){
+        itemDone.style.textDecoration = 'line-through';
+    } else {
+        itemDone.style.textDecoration = 'none';
+    }
 }
 
 // Adds delete (X) <button> to <li>
-const addXBTN = () => {
+const addXBTN = item => {
     const liXBTN = document.createElement('button');
-    liXBTN.setAttribute('id', `item${liBtnID}`);
-    liXBTN.setAttribute('onClick', 'deleteItem(this.id)')
     liXBTN.innerText = 'X';
+    liXBTN.addEventListener('click', () => deleteItem(item))
+    
     return liXBTN
 }
 
-// TRY TO MAKE IT WORK WITH TARGET.VALUE
-const deleteItem = (item) => {
+const deleteItem = item => {
     
     const itemToDelete = document.getElementById(item);
-    OL.remove(itemToDelete)
+    itemToDelete.remove()
+    
 }
 
-//const deleteItemBTN = document.getElementById();
-//deleteItemBTN.addEventListener('click', () => deleteItem());
 
 
 
@@ -62,10 +75,7 @@ const deleteItem = (item) => {
 const clearList = (event) => {
     event.preventDefault();
     if (window.confirm(message)){
-        const clearListEvent = document.querySelector('#Clear-List');
-        clearListEvent.addEventListener('click', 
-            document.getElementById('Ordered-List').innerHTML = ''
-        )
+        document.getElementById('Ordered-List').innerHTML = ''
     }
 }
 const clearListBTN = document.querySelector('#Clear-List');

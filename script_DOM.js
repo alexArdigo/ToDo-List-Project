@@ -53,7 +53,7 @@ OL.setAttribute('id', 'Ordered-List');
 DIV2.append(OL)
 
 // LI
-let liID = 1;
+let liIdCount = 1;
 
 // LI DELETE BUTTON
 let liBtnID = 1;
