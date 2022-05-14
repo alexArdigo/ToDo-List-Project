@@ -24,7 +24,9 @@ formID.addEventListener('submit', submitUserInput)
 const appendLi = () => {
     const LI = document.createElement('li');
     LI.setAttribute('id', `item${liIdCount}`);
-    LI.classList.add('todo-list')
+    LI.classList.add('todo-list');
+    LI.contentEditable = true;
+    LI.setAttribute('onkeypress', `return preventEnterBreakLine(event, item${liIdCount})`)
     LI.appendChild(document.createTextNode(userInput.value + ' '));
     LI.append(doneCheckBox(LI.id));
     LI.append(addXBTN(LI.id));
@@ -43,12 +45,21 @@ const doneCheckBox = item => {
 }
 const itemDone = (item, checkbox) => {
     const itemDone = document.getElementById(item)
-    console.log(itemDone)
     if (checkbox.checked){
         itemDone.style.textDecoration = 'line-through';
     } else {
         itemDone.style.textDecoration = 'none';
     }
+}
+// Prevents Enter to break line inside LI when editing todos
+const preventEnterBreakLine = (event, item) => {
+    let key = event.keyCode;
+    const itemID = item.id
+    if (event.keyCode == 13) {
+        event.preventDefault();
+        document.getElementById(itemID).contentEditable = false
+    }
+    document.getElementById(itemID).contentEditable = true
 }
 
 // Adds delete (X) <button> to <li>
@@ -59,17 +70,11 @@ const addXBTN = item => {
     
     return liXBTN
 }
-
 const deleteItem = item => {
-    
     const itemToDelete = document.getElementById(item);
     itemToDelete.remove()
     
 }
-
-
-
-
 
 // Clears list
 const clearList = (event) => {
