@@ -1,4 +1,3 @@
-
 // Sets Enter key to trigger submit 
 const userInput = document.getElementById('User-Input');
 userInput.addEventListener('keyup', event => {
@@ -51,6 +50,7 @@ const itemDone = (item, checkbox) => {
         itemDone.style.textDecoration = 'none';
     }
 }
+
 // Prevents Enter to break line inside LI when editing todos
 const preventEnterBreakLine = (event, item) => {
     let key = event.keyCode;
